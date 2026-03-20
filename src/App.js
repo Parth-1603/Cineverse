@@ -16,7 +16,7 @@ function App() {
   const search = (e) => {
     if (e.key === "Enter") {
       axios(apiurl + "&s=" + state.s).then(({ data }) => {
-        let results = data.Search;
+        let results = data.Search || [];
 
         setState(prevState => {
           return { ...prevState, results: results }
@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Movie Database</h1>
+        <h1>Cineverse</h1>
       </header>
       <main>
         <Search handleInput={handleInput} search={search} />

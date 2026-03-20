@@ -6,7 +6,8 @@
 
 body {
 	font-family: 'montserrat', sans-serif;
-	background-color: #223343;
+	background-color: #141414;
+	min-height: 100vh;
 }
 
 header {
@@ -14,10 +15,12 @@ header {
 }
 
 header h1 {
-	color: #FFF;
+	color: #E50914;
 	font-size: 48px;
-	font-weight: 500;
+	font-weight: 700;
 	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 main {
@@ -33,24 +36,27 @@ section {
 .searchbox {
 	display: block;
 	width: 100%;
-	padding: 15px;
+	padding: 18px 25px;
 
 	border: none;
 	outline: none;
 	background: none;
 
-	background-color: #EEE;
-	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 50px;
 
-	color: #53565A;
+	color: #223343;
 	font-size: 20px;
-	font-weight: 300;
+	font-weight: 400;
+	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
 
-	transition: 0.4s ease-out;
+	transition: all 0.4s ease-out;
 }
 
 .searchbox:focus {
-	box-shadow: 0px 0px 8px 3px #4484C4;
+	background-color: #FFF;
+	box-shadow: 0px 8px 30px rgba(229, 9, 20, 0.4);
+	transform: translateY(-2px);
 }
 
 .results {
@@ -66,26 +72,36 @@ section {
 	display: flex;
 	flex-direction: column;
 	cursor: pointer;
+	transition: transform 0.3s ease, z-index 0s;
+}
+
+.results .result:hover {
+	transform: scale(1.05) translateY(-5px);
+	z-index: 10;
 }
 
 .results .result img {
 	display: block;
 	width: 100%;
+	border-radius: 12px 12px 0 0;
+	box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
 }
 
 .results .result h3 {
 	color: #FFF;
 	font-size: 20px;
 	font-weight: 600;
-	padding: 10px;
-	background: #445565;
+	padding: 15px;
+	background: #222;
 	flex: 1 1 100%;
-	transition: 0.4s ease-out;
+	border-radius: 0 0 12px 12px;
+	box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+	transition: all 0.4s ease-out;
 }
 
 .results .result:hover h3 {
-	background: #FFF;
-	color: #223343;
+	background: #E50914;
+	color: #FFF;
 }
 
 .popup {
@@ -94,24 +110,47 @@ section {
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: #445565;
-
+	background-color: rgba(0, 0, 0, 0.85);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
 	overflow-y: scroll;
+	z-index: 100;
+	opacity: 0;
+	animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
 }
 
 .popup .content {
 	display: block;
 	width: 100%;
-	max-width: 960px;
-	margin: 0 auto;
-	padding: 25px;
+	max-width: 800px;
+	margin: 50px auto;
+	padding: 40px;
 
+	background-color: #181818;
+	border: 1px solid #333;
+	border-radius: 20px;
 	color: #FFF;
+	box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+
+	transform: translateY(20px);
+	animation: slideUp 0.4s ease 0.1s forwards;
+	opacity: 0;
+}
+
+@keyframes slideUp {
+	from { opacity: 0; transform: translateY(20px); }
+	to { opacity: 1; transform: translateY(0); }
 }
 
 .popup .content h2 {
-	font-size: 28px;
-	font-weight: 600;
+	font-size: 36px;
+	font-weight: 700;
+	margin-bottom: 10px;
 }
 .popup .content h2 span {
 	font-weight: 300;
@@ -120,42 +159,52 @@ section {
 
 .popup .content .rating {
 	margin-bottom: 30px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #46d369; /* Netflix style green match percentage color */
 }
 
 .popup .content .plot {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: flex-start;
 	margin: 0px -15px 30px;
+	line-height: 1.6;
 }
 
 .popup .content .plot img {
 	flex: 1 1 50%;
 	max-width: 300px;
 	padding: 0px 15px;
+	border-radius: 12px;
+	box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .popup .content .plot p {
 	flex: 1 1 50%;
 	padding: 15px;
+	font-size: 18px;
 }
 
 .popup .content .close {
 	display: inline-block;
-	padding: 15px 30px;
+	padding: 12px 30px;
 	font-size: 18px;
-	font-weight: 700;
+	font-weight: 600;
 
-	background: #4484C4;
+	background-color: #E50914;
 	color: #FFF;
-	border-radius: 8px;
+	border-radius: 4px; /* Netflix buttons are more square */
 	border: none;
 	outline: none;
-	appearance: none;
 	cursor: pointer;
 
-	transition: 0.4s ease-out;
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 15px rgba(229, 9, 20, 0.2);
 }
 
 .popup .content .close:hover {
-	background: #223343;
+	background-color: #f40612;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4);
 }
