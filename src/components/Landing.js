@@ -37,14 +37,14 @@ function Landing({ setView }) {
           <span className="btn-arrow">→</span>
         </button>
 
-        <div className="tech-badges fade-in-up delay-4">
+        {/* <div className="tech-badges fade-in-up delay-4">
           <span className="tech-badge">React</span>
           <span className="tech-badge">Node.js</span>
           <span className="tech-badge">Express</span>
           <span className="tech-badge">Bootstrap</span>
           <span className="tech-badge">ES6</span>
           <span className="tech-badge">Regex</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
