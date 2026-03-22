@@ -9,17 +9,27 @@ function App() {
   const [state, setState] = useState({
     s: "",
     results: [],
-    selected: {}
+    selected: {},
+    error: ""
   });
-  const apiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
+  const apiurl = "https://api.themoviedb.org/3";
+  const apiKey = "6ffcfc7894fe5e50980c21748c6d5456";
 
   const search = (e) => {
     if (e.key === "Enter") {
-      axios(apiurl + "&s=" + state.s).then(({ data }) => {
-        let results = data.Search || [];
+      axios(`${apiurl}/search/movie?api_key=${apiKey}&query=${state.s}`).then(({ data }) => {
+        let results = data.results || [];
+        let error = "";
+        if (results.length === 0) {
+            error = "Movie not found!";
+        }
 
         setState(prevState => {
-          return { ...prevState, results: results }
+          return { ...prevState, results: results, error: error }
+        })
+      }).catch(err => {
+        setState(prevState => {
+          return { ...prevState, results: [], error: "Movie not found!" }
         })
       });
     }
@@ -34,7 +44,7 @@ function App() {
   }
 
   const openPopup = id => {
-    axios(apiurl + "&i=" + id).then(({ data }) => {
+    axios(`${apiurl}/movie/${id}?api_key=${apiKey}`).then(({ data }) => {
       let result = data;
 
       console.log(result);
@@ -59,9 +69,13 @@ function App() {
       <main>
         <Search handleInput={handleInput} search={search} />
 
-        <Results results={state.results} openPopup={openPopup} />
+        {state.error ? (
+          <div className="error-message">Oops! {state.error === "Movie not found!" ? "Movie not found" : state.error}</div>
+        ) : (
+          <Results results={state.results} openPopup={openPopup} />
+        )}
 
-        {(typeof state.selected.Title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
+        {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
       </main>
     </div>
   );

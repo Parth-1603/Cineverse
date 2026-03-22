@@ -208,3 +208,15 @@ section {
 	transform: translateY(-2px);
 	box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4);
 }
+
+.error-message {
+	color: #E50914;
+	font-size: 24px;
+	font-weight: 600;
+	text-align: center;
+	margin-top: 50px;
+	padding: 20px;
+	background-color: #181818;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
