@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search({ handleInput, search }) {
+function Search({ handleInput, search, searchValue }) {
   const onInput = (e) => {
     // Regex logic to fulfill the ES5/ES6 Regular Expression requirement
     const cleanRegex = /[^a-zA-Z0-9\s]/g;
@@ -19,6 +19,7 @@ function Search({ handleInput, search }) {
         className="search-input" 
         onChange={onInput}
         onKeyPress={search}
+        value={searchValue}
       />
     </div>
   );

@@ -14,7 +14,7 @@
 .ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(229, 9, 20, 0.15);
+  border: 1px solid rgba(255, 15, 57, 0.15);
   animation: pulseRing 6s ease-in-out infinite;
 }
 
@@ -56,7 +56,7 @@
 .particle {
   position: absolute;
   width: 3px; height: 3px;
-  background: #E50914;
+  background: #ff0f39;
   border-radius: 50%;
   opacity: 0;
   animation: drift 18s linear infinite;
@@ -115,14 +115,14 @@
   color: #fff;
   letter-spacing: 12px;
   text-transform: uppercase;
-  text-shadow: 0 0 30px rgba(229, 9, 20, 0.6), 0 0 80px rgba(229, 9, 20, 0.3);
+  text-shadow: 0 0 30px rgba(255, 15, 57, 0.6), 0 0 80px rgba(255, 15, 57, 0.3);
   margin: 0;
 }
 
 .logo-underline {
   width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, transparent, #E50914, transparent);
+  background: linear-gradient(90deg, transparent, #ff0f39, transparent);
   margin-top: 12px;
   border-radius: 2px;
   animation: shimmer 2s ease-in-out infinite;
@@ -155,7 +155,7 @@
   align-items: center;
   gap: 12px;
   padding: 18px 48px;
-  background: linear-gradient(135deg, #E50914, #b0060f);
+  background: linear-gradient(135deg, #ff0f39, #c10020);
   color: #fff;
   border: none;
   border-radius: 50px;
@@ -164,13 +164,13 @@
   letter-spacing: 3px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+  box-shadow: 0 0 30px rgba(255, 15, 57, 0.4);
   margin-top: 10px;
 }
 
 .enter-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 50px rgba(229, 9, 20, 0.7), 0 0 100px rgba(229, 9, 20, 0.3);
+  box-shadow: 0 0 50px rgba(255, 15, 57, 0.7), 0 0 100px rgba(255, 15, 57, 0.3);
 }
 
 .enter-btn:active {

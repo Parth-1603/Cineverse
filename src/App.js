@@ -108,6 +108,16 @@ function App() {
     });
   }
 
+  const goHome = () => {
+    setView('home');
+    setState(prevState => ({ ...prevState, s: "", results: [], error: "" }));
+  };
+
+  const goToMyList = () => {
+    setView('mylist');
+    setState(prevState => ({ ...prevState, s: "", results: [], error: "" }));
+  };
+
   const openPopup = id => {
     axios(`${apiurl}/movie/${id}?api_key=${apiKey}`).then(({ data }) => {
       let result = data;
@@ -125,7 +135,7 @@ function App() {
 
   return (
     <div className="App">
-      {view !== 'landing' && <Header handleInput={handleInput} search={search} view={view} setView={setView} />}
+      {view !== 'landing' && <Header handleInput={handleInput} search={search} view={view} setView={setView} goHome={goHome} goToMyList={goToMyList} searchValue={state.s} />}
       
       <main>
         {view === 'landing' ? (

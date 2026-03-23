@@ -19,7 +19,6 @@ function Landing({ setView }) {
       {/* Main content */}
       <div className="landing-content">
         <div className="logo-wrapper fade-in-up">
-          <span className="logo-accent">🎬</span>
           <h1 className="landing-logo">CINEVERSE</h1>
           <div className="logo-underline"></div>
         </div>
