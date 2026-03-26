@@ -15,7 +15,7 @@ function Hero({ featured, openPopup, toggleMyList, myList }) {
     <div className="hero" style={{ backgroundImage: `url(${backdropUrl})` }}>
       <div className="hero-vignette"></div>
       <div className="hero-content">
-        <span className="badge">FEATURED</span>
+        <span className="badge">FEATURED.</span>
         <h1 className="hero-title">{featured.title}</h1>
         <div className="hero-meta">
           <span className="rating">
