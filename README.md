@@ -37,4 +37,4 @@ If you want to run the Cineverse instance locally on your battle station, follow
 - **Styling:** Pure, Vanilla CSS. No tailwind bloat here! Hand-crafted gradients and shadows.
 - **Data Hookup:** Axios bridging us directly into the OMDB API Matrix.
 
-*(Built with passion and caffeine)* 🤟
+*(Built with passion and caffeine)* 
