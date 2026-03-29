@@ -8,6 +8,8 @@
 
 **The ULTIMATE Movie Discovery Engine!**
 
+🟢 **Live Demo:** [https://cineverse-virid-five.vercel.app/](https://cineverse-virid-five.vercel.app/)
+
 Explore the cinematic universe with an insanely fast, drop-dead gorgeous, and buttery-smooth movie database application. Uncover blockbuster hits, hidden indie gems, and track down the plots and posters for the entire history of cinema across the multiverse! 🌌🍿
 
 </div>
