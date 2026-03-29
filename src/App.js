@@ -36,12 +36,14 @@ function App() {
       .then(res => console.log('Node Server Connected successfully:', res.data))
       .catch(err => console.log('Waiting for Node Server on port 5000...'));
 
-    // Fetch featured movie specifically
-    axios(`${apiurl}/search/movie?api_key=${apiKey}&query=dhurandhar`).then(({ data }) => {
+    // Fetch featured movie specifically (Dune: Part Two)
+    axios(`${apiurl}/search/movie?api_key=${apiKey}&query=dune+part+two`).then(({ data }) => {
       let results = data.results || [];
       if (results.length > 0) {
-        const dhurandhar = results.find(m => m.release_date && m.release_date.includes('2026')) || results[0];
-        setFeatured(dhurandhar);
+        // Fetch full details to get runtime and genres
+        axios(`${apiurl}/movie/${results[0].id}?api_key=${apiKey}`).then(fullResp => {
+            setFeatured(fullResp.data);
+        });
       }
     });
 
@@ -133,6 +135,29 @@ function App() {
     });
   }
 
+  const getGenreBg = (genreId, fallbackUrl) => {
+    const movie = [...trending, ...topRated].find(m => m.genre_ids && m.genre_ids.includes(genreId) && m.backdrop_path);
+    if (movie) {
+      return `url('https://image.tmdb.org/t/p/w780${movie.backdrop_path}')`;
+    }
+    return `url('${fallbackUrl}')`;
+  };
+
+  const searchByGenre = (genreId) => {
+    setView('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top to see the first movie
+    axios(`${apiurl}/discover/movie?api_key=${apiKey}&with_genres=${genreId}`).then(({ data }) => {
+      let results = data.results || [];
+      setState(prevState => {
+        return { ...prevState, results: results, s: "Genre Search", error: "" }
+      });
+    }).catch(err => {
+      setState(prevState => {
+        return { ...prevState, results: [], error: "No movies found." }
+      });
+    });
+  };
+
   return (
     <div className="App">
       {view !== 'landing' && <Header handleInput={handleInput} search={search} view={view} setView={setView} goHome={goHome} goToMyList={goToMyList} searchValue={state.s} />}
@@ -146,7 +171,7 @@ function App() {
           <div className="error-message">Oops! {state.error === "Movie not found!" ? "Movie not found" : state.error}</div>
         ) : view === 'mylist' ? (
           <div className="search-results-section" style={{ paddingTop: '100px', paddingLeft: '4%', paddingRight: '4%'}}>
-             <h2 className="section-title">My List</h2>
+             <h2 className="section-title" style={{ borderBottom: '2px solid var(--accent-color)', display: 'inline-block', paddingBottom: '5px' }}>Watchlist</h2>
              {myList.length > 0 ? (
                <div className="results-grid">
                  {myList.map(movie => <Result key={movie.id} result={movie} openPopup={openPopup} />)}
@@ -158,8 +183,48 @@ function App() {
         ) : (
           <>
             <Hero featured={featured} openPopup={openPopup} toggleMyList={toggleMyList} myList={myList} />
-            <Row title="Trending Now" movies={trending} openPopup={openPopup} />
-            <Row title="Top Rated" movies={topRated} openPopup={openPopup} />
+            <Row title="Trending Now" movies={trending} openPopup={openPopup} type="trending" />
+            <Row title="Popular Movies" movies={topRated} openPopup={openPopup} type="popular" />
+            
+            {/* Discover by Genre Section */}
+            <div className="content-row genre-section">
+              <h2 className="row-title">Discover by Genre</h2>
+              <div className="genre-grid">
+                <div className="genre-tile large" onClick={() => searchByGenre(878)} style={{ backgroundImage: getGenreBg(878, 'https://images.unsplash.com/photo-1549449852-5950d2bb2d63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8cGxhbmV0fGVufDB8fHx8MTcxMTcxOTg3Nw&ixlib=rb-4.0.3&q=80&w=1080') }}>
+                  <h3>SCI-FI</h3>
+                </div>
+                <div className="genre-tile" onClick={() => searchByGenre(28)} style={{ backgroundImage: getGenreBg(28, 'https://images.unsplash.com/photo-1533282246738-9cb5f38e213b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fGFjdGlvbnxlbnwwfHx8fDE3MTE3MjAwMTg&ixlib=rb-4.0.3&q=80&w=400') }}>
+                  <h3>ACTION</h3>
+                </div>
+                <div className="genre-tile" onClick={() => searchByGenre(18)} style={{ backgroundImage: getGenreBg(18, 'https://images.unsplash.com/photo-1485846234645-a62644f84728?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fGRyYW1hfGVnJvbg&ixlib=rb-4.0.3&q=80&w=400') }}>
+                  <h3>DRAMA</h3>
+                </div>
+                <div className="genre-tile" onClick={() => searchByGenre(27)} style={{ backgroundImage: getGenreBg(27, 'https://images.unsplash.com/photo-1596515284381-817ab46430db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTd8fHNjYXJ5fGVufDB8fHx8MTcxMTcyMDA1Nw&ixlib=rb-4.0.3&q=80&w=400') }}>
+                  <h3>HORROR</h3>
+                </div>
+                <div className="genre-tile" onClick={() => searchByGenre(10749)} style={{ backgroundImage: getGenreBg(10749, 'https://images.unsplash.com/photo-1518199266791-5375a83164ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8OHx8cm9tYW5jZXxlbnwwfHx8fDE3MTE3MjAxMDI&ixlib=rb-4.0.3&q=80&w=400') }}>
+                  <h3>ROMANCE</h3>
+                </div>
+              </div>
+            </div>
+            
+            <footer className="site-footer">
+              <div className="footer-content">
+                <h1 className="footer-logo">CINEVERSE</h1>
+                <div className="footer-links">
+                  <span>Privacy Policy</span>
+                  <span>Terms of Service</span>
+                  <span>Contact Us</span>
+                  <span>API Documentation</span>
+                </div>
+                <div className="footer-right">
+                  <span className="footer-tmdb">TMDb</span>
+                </div>
+              </div>
+              <div className="footer-copyright">
+                © 2026 Cineverse. Powered by TMDb.
+              </div>
+            </footer>
           </>
         )}
 

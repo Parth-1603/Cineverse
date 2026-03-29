@@ -8,7 +8,7 @@ function Header({ handleInput, search, view, setView, goHome, goToMyList, search
         <h1 className="logo" onClick={goHome || (() => setView('home'))} style={{cursor: 'pointer'}}>CINEVERSE</h1>
         <nav className="nav-links">
           <span className={`nav-link ${view === 'home' ? 'active' : ''}`} onClick={goHome || (() => setView('home'))}>Movies</span>
-          <span className={`nav-link ${view === 'mylist' ? 'active' : ''}`} onClick={goToMyList || (() => setView('mylist'))}>My List</span>
+          <span className={`nav-link ${view === 'mylist' ? 'active' : ''}`} onClick={goToMyList || (() => setView('mylist'))}>Watchlist</span>
         </nav>
       </div>
       <div className="header-right">
